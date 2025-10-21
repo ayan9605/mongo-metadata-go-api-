@@ -12,11 +12,11 @@ WORKDIR /build
 # Copy go.mod first
 COPY go.mod ./
 
-# Copy go.sum only if it exists (using wildcard pattern)
+# Copy go.sum if it exists (optional with wildcard)
 COPY go.su[m] ./
 
-# Download dependencies - this will also generate go.sum if missing
-RUN go mod download && go mod verify
+# Download dependencies and generate/update go.sum
+RUN go mod download && go mod tidy
 
 # Copy source code
 COPY . .
